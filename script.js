@@ -1,3 +1,30 @@
+// Theme switcher
+const themeSwitcher = document.getElementById('themeSwitcher');
+const themeLabel = themeSwitcher.querySelector('.theme-label');
+const savedTheme = localStorage.getItem('theme') || 'dark';
+
+if (savedTheme === 'light') {
+  document.documentElement.setAttribute('data-theme', 'light');
+  themeLabel.textContent = 'Dark';
+}
+
+themeSwitcher.addEventListener('click', () => {
+  document.body.classList.add('theme-transitioning');
+  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+
+  if (isLight) {
+    document.documentElement.removeAttribute('data-theme');
+    themeLabel.textContent = 'Light';
+    localStorage.setItem('theme', 'dark');
+  } else {
+    document.documentElement.setAttribute('data-theme', 'light');
+    themeLabel.textContent = 'Dark';
+    localStorage.setItem('theme', 'light');
+  }
+
+  setTimeout(() => document.body.classList.remove('theme-transitioning'), 400);
+});
+
 // Navigation scroll effect
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
